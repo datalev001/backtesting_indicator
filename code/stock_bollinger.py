@@ -436,7 +436,7 @@ print(quantile_table)
 
 
 
-file_path = r'C:\backupcgi\final_bak\stock_fullsegment.csv'
+file_path = 'stock_fullsegment.csv'
 start_test_date = "2019-10-01"
 end_test_date = "2024-10-18"
 initial_capital = 10000
@@ -477,54 +477,6 @@ for itv1 in R:
         quantile_table_chosen = quantile_table.head(3)
         quantile_df = pd.concat([quantile_df, quantile_table_chosen], ignore_index=True)
         
-quantile_df.to_csv(r'C:\backupcgi\final_bak\QuantileTable_Bolinger.csv', index = False)    
+quantile_df.to_csv('QuantileTable_Bolinger.csv', index = False)    
          
 
-summary_df = pd.DataFrame([])
-quantile_df = pd.DataFrame([])
-
-
-
-max_holding_days = 30
-gain_threshold = 0.3
-use_end_date = True
-for itv1 in R:
-    delta_low = itv1
-    for itv2 in RULES:
-        delta_up = itv2    
- 
-        summary, transaction_table, quantile_table = execute_bollinger_backtest(
-            file_path=file_path,
-            start_test_date=start_test_date,
-            end_test_date=end_test_date,
-            initial_capital=initial_capital,
-            max_holding_days=max_holding_days,
-            gain_threshold=gain_threshold,
-            use_end_date=use_end_date,
-            trade_size=trade_size,
-            delta_low=delta_low,
-            delta_up=delta_up
-        )
-         
-        R = [delta_low, delta_up] 
-        print (R)
-        print ("**************************************")
-        print (quantile_table)
-        quantile_table_chosen = quantile_table.head(3)
-        quantile_df = pd.concat([quantile_df, quantile_table_chosen], ignore_index=True)
-        
-quantile_df.to_csv(r'C:\backupcgi\final_bak\QuantileTable_Bolinger1.csv', index = False)    
-                 
-        
-
-
-    summary_df = pd.concat([summary_df, summary], ignore_index=True)
-    quantile_df = pd.concat([quantile_df, quantile_table], ignore_index=True)
-
-# Output summary and quantile DataFrames
-print(summary_df)
-print(quantile_df)
-
-summary_df.to_csv(r'C:\backupcgi\final_bak\summary_Bol.csv',index = False)
-quantile_df.to_csv(r'C:\backupcgi\final_bak\quantile_Bol.csv',index = False)
-backtest_df.to_csv(r'C:\backupcgi\final_bak\buyhold_Bol.csv',index = False)
