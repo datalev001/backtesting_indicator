@@ -3,23 +3,6 @@ import numpy as np
 from datetime import timedelta
 from datetime import datetime
 
-stock_df = pd.read_csv(r'C:\backupcgi\final_bak\stock_fullsegment.csv')
-stock_df.columns
-
-#424
-len(set(stock_df.Ticker))
-
-max(stock_df['Date'])
-min(stock_df['Date'])
-
-stock_df.dtypes
-
-Date is object
-'2019-10-01 00:00:00-04:00'
-'2024-10-18 00:00:00-04:00'
-
-
-##############
 
 def precompute_macd(stock_df, fast=12, slow=26, signal=9):
     """
@@ -529,7 +512,7 @@ def execute_macd_backtest(file_path, start_test_date, end_test_date,
     quantile_table['Selling Rule'] = selling_rule
     return summary, transaction_table, quantile_table
 
-file_path = r'C:\backupcgi\final_bak\stock_fullsegment.csv'
+file_path = 'stock_fullsegment.csv'
 start_test_date = "2019-10-01"
 end_test_date = "2024-10-18"
 max_holding_days = 100
@@ -576,50 +559,9 @@ for itv in RULES:
     quantile_df = pd.concat([quantile_df,quantile_table])
 
 
-summary_df.to_csv(r'C:\backupcgi\final_bak\summary_MACD.csv',index = False)
-quantile_df.to_csv(r'C:\backupcgi\final_bak\quantile_MACD.csv',index = False)
-backtest_df.to_csv(r'C:\backupcgi\final_bak\buyhold_MACD.csv',index = False)
 
 
 
 
 
 
-
-
-
-import matplotlib.pyplot as plt
-import pandas as pd
-
-# Example data
-data = {
-    'Day': ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Current'],
-    'MACD_Line': [2.00, 1.80, 1.70, 2.10, 2.20, 2.50, 2.40, 2.60, 2.70, 2.00],  # MACD values
-    'Signal_Line': [None, None, None, None, None, None, None, None, None, 2.30],  # 9-day EMA of MACD Line
-    'MACD_Histogram': [None, None, None, None, None, None, None, None, None, -0.30],  # Difference between MACD and Signal Line
-}
-
-# Create DataFrame
-df = pd.DataFrame(data)
-
-# Plot MACD Line and Signal Line
-plt.figure(figsize=(10, 6))
-plt.plot(df['Day'], df['MACD_Line'], label='MACD Line', color='blue', marker='o')
-plt.plot(df['Day'], df['Signal_Line'], label='Signal Line', color='orange', marker='o')
-
-# Add MACD Histogram as bars
-histogram_values = [val if val is not None else 0 for val in df['MACD_Histogram']]  # Replace None with 0
-plt.bar(df['Day'], histogram_values, label='MACD Histogram', color='gray', alpha=0.5)
-
-# Add horizontal line at 0 for reference
-plt.axhline(0, color='black', linestyle='--', linewidth=0.7)
-
-# Add labels, legend, and title
-plt.title('MACD Indicator Chart')
-plt.xlabel('Day')
-plt.ylabel('Value')
-plt.legend()
-
-# Show the plot
-plt.tight_layout()
-plt.show()
