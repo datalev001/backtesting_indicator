@@ -366,7 +366,7 @@ def execute_rsi_backtest(file_path, start_test_date, end_test_date,
     return summary, transaction_table, quantile_table
 
 # Parameters
-file_path = r'C:\backupcgi\final_bak\stock_fullsegment.csv'
+file_path = 'stock_fullsegment.csv'
 start_test_date = "2019-10-01"
 end_test_date = "2024-10-18"
 max_holding_days = 100        # Reduced for shorter-term RSI strategy
@@ -398,13 +398,7 @@ print(summary)
 print(transaction_table)
 print(quantile_table)
 
-
-rsi_entry,
-rsi_exit,
-lags_buy_days
-max_holding_days
   
-   
 
 RULES = [
     (30, 70, 0, 50), (40, 75, 1, 80), (45, 80, 0, 100),
@@ -441,33 +435,11 @@ for itv in RULES:
         lags_buy_days=lags_buy_days
     )
     
-    TTT = [rsi_entry, rsi_exit, lags_buy_days, max_holding_days]
+    info = [rsi_entry, rsi_exit, lags_buy_days, max_holding_days]
     
-    print (TTT)
+    print (info)
     print ("**************************************")
     print (quantile_table)
     
     
     
-    
-    
-
-    # Accumulate summaries and quantiles
-    summary_df = pd.concat([summary_df, summary], ignore_index=True)
-    quantile_df = pd.concat([quantile_df, quantile_table], ignore_index=True)
-
-# Output summary and quantile DataFrames
-print(summary_df)
-print(quantile_df)
-
-
-# Save results to CSV files for further analysis
-summary_df.to_csv(r'C:\backupcgi\final_bak\summary_RSI.csv', index=False)
-quantile_df.to_csv(r'C:\backupcgi\final_bak\quantile_RSI.csv', index=False)
-
-
-
-
-
-
-
