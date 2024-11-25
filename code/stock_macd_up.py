@@ -145,7 +145,7 @@ def individual_macd_test_from_macd_df(macd_df,
 
 
 # Usage Example
-file_path = r'C:\backupcgi\final_bak\stock_fullsegment.csv'
+file_path = 'stock_fullsegment.csv'
 start_test_date = "2019-10-01"
 end_test_date = "2024-10-18"
 
